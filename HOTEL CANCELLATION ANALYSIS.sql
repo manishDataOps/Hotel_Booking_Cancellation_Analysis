@@ -1,6 +1,6 @@
 -- HOTEL BOOKING CANCELLATION ANALYSIS
 
---(1) Cancellation Comparison: City Hotel vs Resort Hotel
+--(1) Overall Booking & Cancellation Analysis;
 
 	SELECT 
 	COUNT(*) AS total_booking ,
@@ -8,7 +8,7 @@
 	CONCAT(CAST(SUM(CASE WHEN is_canceled = 1 THEN 1 ELSE 0 END) * 100 / COUNT(*) AS decimal(5,2)),'%') AS cancellation_rate
 	FROM hotel_booking ;
 
---(2) Impact of Lead Time on Booking Cancellations
+--(2) Cancellation Rate by Hotel Type;
 
 	SELECT
 	hotel,
@@ -19,7 +19,7 @@
 	GROUP BY hotel
 	ORDER BY total_cancellation DESC ;
 
---(3) Market Segment-Wise Cancellation Behavior
+--(3) Lead Time-wise Booking Cancellation Analysis;
 	
 	SELECT
 	CASE
@@ -37,7 +37,7 @@
 		ELSE 'above 60 days' end
 		ORDER BY total_cancellation DESC ;
 
---(4) Customer Loyalty Analysis: New vs Repeat Guests
+--(4) Market Segment-wise Booking & Cancellation Analysis;
 
 	SELECT
 	market_segment,
@@ -48,7 +48,7 @@
 	GROUP BY market_segment
 	ORDER BY total_booking DESC, cancellation_rate DESC ;
 
---(5) 
+--(5) Repeat vs New Customer Cancellation Behavior;
 	
 	SELECT
 	CASE WHEN is_repeated_guest = 1 THEN 'repeted_customer' ELSE 'unique_customer' END AS customer_type,
@@ -58,7 +58,7 @@
 	FROM hotel_booking
 	GROUP BY CASE WHEN is_repeated_guest = 1 THEN 'repeted_customer' ELSE 'unique_customer' END ;
 
---(6) Year-on-Year Cancellation Trend Analysis
+--(6) Year-wise Booking Cancellation Analysis;
 
 	SELECT
 	FORMAT(reservation_status_date,'yyyy') AS year,
@@ -68,7 +68,7 @@
 	FROM hotel_booking
 	GROUP BY FORMAT(reservation_status_date,'yyyy') ;
 
---(7) Seasonal Trend in Booking Cancellations
+--(7) Monthly Booking Cancellation Rate ;
 
 	SELECT
 	MONTH(reservation_status_date) AS month_num,
@@ -80,4 +80,5 @@
 	GROUP BY MONTH(reservation_status_date), FORMAT(reservation_status_date,'MMM') 
 	ORDER BY MONTH(reservation_status_date) ASC ;
 	
+
 
