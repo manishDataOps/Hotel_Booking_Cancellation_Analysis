@@ -1,8 +1,6 @@
 # Hotel_Booking_Cancellation_Analysis
 #This project analyzes hotel booking cancellation using SQL
 
-# Hotel Booking Cancellation Analysis
-
 ## Project Objective
 To analyze hotel booking data and identify key factors responsible for cancellations.
 
